@@ -60,7 +60,7 @@ pipeline {
                 script {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
-                    bat "C:\\Program Files\\Java\\apache-maven-3.3.3\\bin\\mvn deploy"
+                    bat "mvn deploy"
                 }
             }
         }
