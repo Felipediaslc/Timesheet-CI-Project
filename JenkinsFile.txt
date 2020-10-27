@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Let's clone the source
-                    //git 'https://github.com/ihebsd/Timesheet-CI-Project.git';
+                    git 'https://github.com/ihebsd/Timesheet-CI-Project.git';
                 }
             }
         }
@@ -66,8 +66,8 @@ pipeline {
         }
         stage("mail") {
           steps {
-       //   mail bcc: '', body: '''Hello User the build of your project successed.
-        //    Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build succed', to: 'iheb.sidhom@esprit.tn'
+          mail bcc: '', body: '''Hello User the build of your project successed.
+            Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build succed', to: 'iheb.sidhom@esprit.tn'
           }
         
         }
