@@ -64,10 +64,21 @@ pipeline {
                 }
             }
         }
+
+	stage("sonar ") {
+            steps {
+                script {
+                    // If you are using Windows then you should use "bat" step
+                    // Since unit testing is out of the scope we skip them
+                    bat "mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=2a30df8510da32313b15294b9a82bdf96bc85e69"
+                }
+            }
+        } 
+
         stage("mail") {
           steps {
-          mail bcc: '', body: '''Hello User the build of your project successed.
-            Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build succed', to: 'iheb.sidhom@esprit.tn'
+          mail bcc: '', body: '''Hello User the build of your project succeeded.
+            Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build successfull', to: 'bilel.amdouni.1@esprit.tn'
           }
         
         }
