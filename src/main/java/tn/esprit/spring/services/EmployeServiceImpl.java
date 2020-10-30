@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import tn.esprit.spring.repository.TimesheetRepository;
 @Service
 public class EmployeServiceImpl implements IEmployeService {
 
+	private static Logger log = Logger.getLogger(EmployeServiceImpl.class);
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -39,6 +41,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	@Override
 	public int addOrUpdateEmploye(Employe employe) {
 		employeRepository.save(employe);
+		log.info("log:employee added! ");
 		return employe.getId();
 	}
 
@@ -47,6 +50,8 @@ public class EmployeServiceImpl implements IEmployeService {
 		Employe employe = employeRepository.findById(employeId).get();
 		employe.setEmail(email);
 		employeRepository.save(employe);
+		log.info("log:mail updated! ");
+
 
 	}
 
@@ -116,6 +121,8 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 
 		employeRepository.delete(employe);
+		log.info("log:employee supprimee! ");
+
 	}
 
 	public void deleteContratById(int contratId) {
