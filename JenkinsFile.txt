@@ -52,7 +52,27 @@ pipeline {
             }
         }
      
-        
+           stage("sonar ") {
+         
+            steps {
+                script {
+                    // If you are using Windows then you should use "bat" step
+                    // Since unit testing is out of the scope we skip them
+                     withSonarQubeEnv('timesheet-environment') {
+
+                    bat "mvn sonar:sonar "
+                     }
+                }
+            }
+        } 
+
+       stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
         
            
          stage("mvn deploy") {
@@ -65,15 +85,7 @@ pipeline {
             }
         }
 
-	stage("sonar ") {
-            steps {
-                script {
-                    // If you are using Windows then you should use "bat" step
-                    // Since unit testing is out of the scope we skip them
-                    bat "mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=2a30df8510da32313b15294b9a82bdf96bc85e69"
-                }
-            }
-        } 
+
 
         stage("mail") {
           steps {
