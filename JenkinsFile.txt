@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Let's clone the source
-                    git 'https://github.com/ihebsd/Timesheet-CI-Project.git';
+                    git branch: 'said', url: 'https://github.com/ihebsd/Timesheet-CI-Project.git';
                 }
             }
         }
