@@ -1,9 +1,10 @@
 package tn.esprit.spring;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
+import static org.junit.Assert.assertNotEquals;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import tn.esprit.spring.controller.ControllerEmployeImpl;
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EmployeRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
 import tn.esprit.spring.repository.MissionRepository;
+import tn.esprit.spring.repository.TimesheetRepository;
 import tn.esprit.spring.services.IEmployeService;
+import tn.esprit.spring.services.TimesheetServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,12 +33,62 @@ public class TimesheetApplicationTests {
 	@Autowired
 	EmployeRepository employeRepository;
 	
+	@Autowired
+	MissionRepository missionRepository;
+	
+	@Autowired
+	DepartementRepository deptRepoistory;
+	
+	@Autowired
+	TimesheetRepository timesheetRepository;
+	TimesheetServiceImpl tmp = new TimesheetServiceImpl();
+
+	private static Logger log = Logger.getLogger(TimesheetApplicationTests.class);
+
 	
 	@Test
-	public void testGetAllEmployes() {
-		List<Employe> e=ems.getAllEmployes();
+	public void testAddMission() {
+		try {
+			
+		//	Mission M =;
+		//	System.out.println("spot me 1");
+			//int Mid= tmp.ajouterMission(M);//the int returned is NULL 
+			Mission Mt= missionRepository.save(new Mission("MissionT","mission de test1"));
+			System.out.println("spot me 2 "+Mt.getId());
+			assertNotEquals("Ajout mission echoué!",0, Mt.getId());
+			System.out.println("spot me 3");
+			if(Mt.getId() != 0)
+				log.info("ajout mission "+Mt.getId()+" réussie ");
+		
+		} catch (Exception e) {
+
+			log.debug(e);
+			log.info("HUDS: an exception has occured!");
+
+		}
+	}
 	
+	@Test
+	public void testAddTimesheet() {
+	 try {
+		 	String dateD="30/10/2020";
+		 	String dateF="31/12/2020";		 	
+			Date dateDebut=new SimpleDateFormat("dd/MM/yyyy").parse(dateD);
+			Date dateFin=new SimpleDateFormat("dd/MM/yyyy").parse(dateF);
+			
+			Mission M =new Mission("MissionT2","mission de test2");
+			int Mid= tmp.ajouterMission(M);
+			long current = timesheetRepository.count(); 
+			tmp.ajouterTimesheet(Mid, 3, dateDebut, dateFin);
+			assertEquals((current +1), timesheetRepository.count());
+		
+		} catch (Exception e) {
+
+			log.debug(e);
+			log.info("HUDS: an exception has occured!");
+		}
 		
 	}
+	
 	
 }
