@@ -12,18 +12,18 @@ import tn.esprit.spring.services.*;
 class TimesheetApplicationTests {
 	private static final Logger l = Logger.getLogger(TimesheetApplicationTests.class);
 	@Autowired
-	IEmployeService employeService;
+	IEntrepriseService entrpriseService;
 	@Test
-	void testAjoutEmployee() {
+	void testAjoutDepartement() {
 		int k=0;
 		try {
-			k=employeService.addOrUpdateEmploye(new Employe("hbiib", "raoudh", "saidhamouda67@yahoo.fr", "test123", false, Role.ADMINISTRATEUR));
+			k=entrpriseService.ajouterDepartement(new Departement("DevOps"));
 		boolean test=(k!=0)?true:false;
 		
-		assertEquals(test, true,"ajout avec success de lemployee");
+		assertEquals(test, true,"Departement ajouté avec succée");
 		
 		if(test) {
-			l.info("employee avec id "+k+" added successfully ");
+			l.info("Departement avec id "+k+" added successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -32,20 +32,17 @@ class TimesheetApplicationTests {
 	}
 
 	@Test
-	void suppressionEmployee() {
-		int nb_avans_suppression=employeService.getNombreEmployeJPQL();
+	void suppressionDepartement() {
 
 		try {
-			System.out.println(nb_avans_suppression);
-			employeService.deleteEmployeById(2);
-			int nb_apres_suppression=employeService.getNombreEmployeJPQL();
-			System.out.println(nb_apres_suppression);
-			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
+			entrpriseService.deleteDepartementById(2);
+			
+			boolean test=true;
 		
-		assertEquals(test, true,"supprimee  avec success de lemployee");
+		assertEquals(test, true,"Supression du departement avec succés");
 		
 		if(test) {
-			l.info("employee avec id "+2+" deleted  successfully ");
+			l.info("Departement avec id "+2+" deleted  successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
