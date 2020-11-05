@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
+
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tn.esprit.spring.controller.ControllerEmployeImpl;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Mission;
+import tn.esprit.spring.entities.Timesheet;
+import tn.esprit.spring.entities.TimesheetPK;
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EmployeRepository;
@@ -63,7 +67,7 @@ public class TimesheetApplicationTests {
 		} catch (Exception e) {
 
 			log.debug(e);
-			log.info("HUDS: an exception has occured!");
+			log.info("HUDS.TestAddM: an exception has occured!");
 
 		}
 	}
@@ -77,15 +81,21 @@ public class TimesheetApplicationTests {
 			Date dateFin=new SimpleDateFormat("dd/MM/yyyy").parse(dateF);
 			
 			Mission M =new Mission("MissionT2","mission de test2");
-			int Mid= tmp.ajouterMission(M);
+			Mission Mt= missionRepository.save(M);
+			Optional<Employe> em= employeRepository.findById(3);
+			
 			long current = timesheetRepository.count(); 
-			tmp.ajouterTimesheet(Mid, 3, dateDebut, dateFin);
+			System.out.println("id:"+Mt.getId()+" count: "+current);
+			timesheetRepository.save(new Timesheet(new TimesheetPK(Mt.getId(), 3, dateDebut, dateFin), Mt,em.get(), false)) ;
+			//
 			assertEquals((current +1), timesheetRepository.count());
+			if((current +1)== timesheetRepository.count())
+				log.info("=> ajout Timesheet réussie ");
 		
 		} catch (Exception e) {
 
 			log.debug(e);
-			log.info("HUDS: an exception has occured!");
+			log.info("HUDS.TestAddT: an exception has occured!");
 		}
 		
 	}
