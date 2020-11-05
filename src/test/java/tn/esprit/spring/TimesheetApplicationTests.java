@@ -12,18 +12,18 @@ import tn.esprit.spring.services.*;
 class TimesheetApplicationTests {
 	private static final Logger l = Logger.getLogger(TimesheetApplicationTests.class);
 	@Autowired
-	IEntrepriseService entrepriseService;
+	IEmployeService employeService;
 	@Test
-	void testAjoutEntreprise() {
+	void testAjoutEmployee() {
 		int k=0;
 		try {
-			k=entrepriseService.ajouterEntreprise(new Entreprise("Renault", "Renault SAS"));
+			k=employeService.addOrUpdateEmploye(new Employe("hbiib", "raoudh", "saidhamouda67@yahoo.fr", "test123", false, Role.ADMINISTRATEUR));
 		boolean test=(k!=0)?true:false;
 		
-		assertEquals(test, true,"ajout avec success de l'entreprise");
+		assertEquals(test, true,"ajout avec success de lemployee");
 		
 		if(test) {
-			l.info("entreprise avec id "+k+" added successfully ");
+			l.info("employee avec id "+k+" added successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -32,20 +32,20 @@ class TimesheetApplicationTests {
 	}
 
 	@Test
-	void suppressionEntreprise() {
-		int nb_avant_suppression=entrepriseService.getNombreEntreprise();
+	void suppressionEmployee() {
+		int nb_avans_suppression=employeService.getNombreEmployeJPQL();
 
 		try {
-			System.out.println(nb_avant_suppression);
-			entrepriseService.deleteEntrepriseById(2);
-			int nb_apres_suppression=entrepriseService.getNombreEntreprise();
+			System.out.println(nb_avans_suppression);
+			employeService.deleteEmployeById(2);
+			int nb_apres_suppression=employeService.getNombreEmployeJPQL();
 			System.out.println(nb_apres_suppression);
-			boolean test=(nb_apres_suppression!=nb_avant_suppression)?true:false;
+			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
 		
-		assertEquals(test, true,"supprimee  avec success de lentreprise");
+		assertEquals(test, true,"supprimee  avec success de lemployee");
 		
 		if(test) {
-			l.info("entreprise avec id "+2+" deleted  successfully ");
+			l.info("employee avec id "+2+" deleted  successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
