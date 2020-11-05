@@ -50,7 +50,7 @@ class TimesheetApplicationTests {
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
-			l.error(e)
+			l.error(e);
 		}
 	}
 
