@@ -21,7 +21,7 @@ class TimesheetApplicationTests {
 			k=employeService.addOrUpdateEmploye(new Employe("example_nom", "example_prenom", "addresse@mail.com", "pass1234", false, Role.ADMINISTRATEUR));
 		boolean test=(k!=0)?true:false;
 		
-		assertEquals(true, true,"ajout avec success de lemployee");
+		assertEquals(true, test);
 		
 		if(test) {
 			l.info("employee avec id "+k+" added successfully ");
@@ -43,7 +43,7 @@ class TimesheetApplicationTests {
 			System.out.println(nb_apres_suppression);
 			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
 		
-		assertEquals(test, true,"supprimee  avec success de lemployee");
+		assertEquals(true,test);
 		
 		if(test) {
 			l.info("employee avec id "+12+" deleted  successfully ");
