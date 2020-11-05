@@ -14,7 +14,7 @@ class TimesheetApplicationTests {
 	@Autowired
 	IEntrepriseService entrepriseService;
 	@Test
-	void testAjoutEmployee() {
+	void testAjoutEntreprise() {
 		int k=0;
 		try {
 			k=entrepriseService.ajouterEntreprise(new Entreprise("Renault", "Renault SAS"));
@@ -32,7 +32,7 @@ class TimesheetApplicationTests {
 	}
 
 	@Test
-	void suppressionEmployee() {
+	void suppressionEntreprise() {
 		int nb_avant_suppression=entrepriseService.getNombreEntreprise();
 
 		try {
