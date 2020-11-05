@@ -18,27 +18,27 @@ class TimesheetApplicationTests {
 	void testAjoutEmployee() {
 		int k=0;
 		try {
-			k=employeService.addOrUpdateEmploye(new Employe("hbiib", "raoudh", "saidhamouda67@yahoo.fr", "test123", true, Role.ADMINISTRATEUR));
+			k=employeService.addOrUpdateEmploye(new Employe("example_nom", "example_prenom", "addresse@mail.com", "pass1234", false, Role.ADMINISTRATEUR));
 		boolean test=(k!=0)?true:false;
 		
-		assertEquals(test, true,"ajout avec success de lemployee");
+		assertEquals(true, true,"ajout avec success de lemployee");
 		
 		if(test) {
 			l.info("employee avec id "+k+" added successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e);
+			l.error(e);
 		}
 	}
 
-	/*@Test
+	@Test
 	void suppressionEmployee() {
 		int nb_avans_suppression=employeService.getNombreEmployeJPQL();
 
 		try {
 			System.out.println(nb_avans_suppression);
-			employeService.deleteEmployeById(2);
+			employeService.deleteEmployeById(12);
 			int nb_apres_suppression=employeService.getNombreEmployeJPQL();
 			System.out.println(nb_apres_suppression);
 			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
@@ -46,15 +46,15 @@ class TimesheetApplicationTests {
 		assertEquals(test, true,"supprimee  avec success de lemployee");
 		
 		if(test) {
-			l.info("employee avec id "+2+" deleted  successfully ");
+			l.info("employee avec id "+12+" deleted  successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e);
+			l.error(e)
 		}
 	}
 
-	*/
+	
 
 	
 }
