@@ -12,18 +12,18 @@ import tn.esprit.spring.services.*;
 class TimesheetApplicationTests {
 	private static final Logger l = Logger.getLogger(TimesheetApplicationTests.class);
 	@Autowired
-	IEmployeService employeService;
+	IEntrepriseService entrepriseService;
 	@Test
 	void testAjoutEmployee() {
 		int k=0;
 		try {
-			k=employeService.addOrUpdateEmploye(new Employe("hbiib", "raoudh", "saidhamouda67@yahoo.fr", "test123", false, Role.ADMINISTRATEUR));
+			k=entrepriseService.ajouterEntreprise(new Entreprise("Renault", "Renault SAS"));
 		boolean test=(k!=0)?true:false;
 		
-		assertEquals(test, true,"ajout avec success de lemployee");
+		assertEquals(test, true,"ajout avec success de l'entreprise");
 		
 		if(test) {
-			l.info("employee avec id "+k+" added successfully ");
+			l.info("entreprise avec id "+k+" added successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -33,19 +33,19 @@ class TimesheetApplicationTests {
 
 	@Test
 	void suppressionEmployee() {
-		int nb_avans_suppression=employeService.getNombreEmployeJPQL();
+		int nb_avant_suppression=entrepriseService.getNombreEntreprise();
 
 		try {
-			System.out.println(nb_avans_suppression);
-			employeService.deleteEmployeById(2);
-			int nb_apres_suppression=employeService.getNombreEmployeJPQL();
+			System.out.println(nb_avant_suppression);
+			entrepriseService.deleteEntrepriseById(2);
+			int nb_apres_suppression=entrepriseService.getNombreEntreprise();
 			System.out.println(nb_apres_suppression);
-			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
+			boolean test=(nb_apres_suppression!=nb_avant_suppression)?true:false;
 		
-		assertEquals(test, true,"supprimee  avec success de lemployee");
+		assertEquals(test, true,"supprimee  avec success de lentreprise");
 		
 		if(test) {
-			l.info("employee avec id "+2+" deleted  successfully ");
+			l.info("entreprise avec id "+2+" deleted  successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
