@@ -15,24 +15,25 @@ class TimesheetApplicationTests {
 	
 	private static final Logger l = Logger.getLogger(TimesheetApplicationTests.class);
 	@Autowired
-	IEmployeService employeService;
-	/*@Test
-	void testAjoutEmployee() {
+	ITimesheetService TimesheetService;
+	IEmployeService employeService ;
+	@Test
+	void testAjoutMission() {
 		int k=0;
 		try {
-			k=employeService.addOrUpdateEmploye(new Employe("safsaf", "raslen", "raslensafsaf@gmail.com", "test", false, Role.ADMINISTRATEUR));
+			k=TimesheetService.ajouterMission(new Mission("test1", "test JUnit"));/*addOrUpdateEmploye(new Employe("safsaf", "raslen", "raslensafsaf@gmail.com", "test", false, Role.ADMINISTRATEUR));*/
 		boolean test=(k!=0)?true:false;
 		//JUnit test
-		assertEquals(test, true,"ajout avec success de lemployee");
+		assertEquals(test, true,"ajout avec success de la mission");
 		//Log4j 
 		if(test) {
-			l.info("employee avec id "+k+" added successfully ");
+			l.info(" mission avec id "+k+" a été ajouté avec succés");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
 		}
-	}*/
+	}
 
 	@Test
 	void suppressionEmployee() {
@@ -45,7 +46,7 @@ class TimesheetApplicationTests {
 			System.out.println(nb_apres_suppression);
 			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
 		
-		assertEquals(test, true,"supprimee  avec success de lemployee");	
+		assertEquals(test, true,"L'employé a été supprimé avec succés");	
 		if(test) {
 			l.info("employee avec id "+11+" deleted  successfully ");
 		}
