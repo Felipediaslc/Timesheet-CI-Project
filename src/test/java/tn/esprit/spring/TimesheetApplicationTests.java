@@ -46,7 +46,7 @@ class TimesheetApplicationTests {
 		assertEquals(true,test);
 		
 		if(test) {
-			l.info("employee avec id "+12+" deleted  successfully ");
+			l.info("employee avec id "+15+" deleted  successfully ");
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
