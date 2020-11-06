@@ -66,8 +66,8 @@ public class TimesheetApplicationTests {
 		
 		} catch (Exception e) {
 
-			log.debug(e);
-			log.info("HUDS.TestAddM: an exception has occured!");
+			log.error(e);
+			log.error("HUDS.TestAddM: an exception has occured!");
 
 		}
 	}
@@ -94,8 +94,8 @@ public class TimesheetApplicationTests {
 		
 		} catch (Exception e) {
 
-			log.debug(e);
-			log.info("HUDS.TestAddT: an exception has occured!");
+			log.error(e);
+			log.error("HUDS.TestAddT: an exception has occured!");
 		}
 		
 	}
