@@ -82,6 +82,7 @@ pipeline {
                 }
             }
         }
+	
         stage("mail") {
           steps {
           mail bcc: '', body: '''Hello User the build of your project successed.
