@@ -18,7 +18,7 @@ class TimesheetApplicationTests {
 	void testAjoutEmployee() {
 		int k=0;
 		try {
-			k=employeService.addOrUpdateEmploye(new Employe("example_nom", "example_prenom", "addresse@mail.com", "pass1234", false, Role.ADMINISTRATEUR));
+			k=employeService.addOrUpdateEmploye(new Employe("hedi", "example_prenom", "addresse@mail.com", "pass1234", false, Role.ADMINISTRATEUR));
 		boolean test=(k!=0)?true:false;
 		
 		assertEquals(true, test);
@@ -38,7 +38,7 @@ class TimesheetApplicationTests {
 
 		try {
 			System.out.println(nb_avans_suppression);
-			employeService.deleteEmployeById(12);
+			employeService.deleteEmployeById(15);
 			int nb_apres_suppression=employeService.getNombreEmployeJPQL();
 			System.out.println(nb_apres_suppression);
 			boolean test=(nb_apres_suppression!=nb_avans_suppression)?true:false;
