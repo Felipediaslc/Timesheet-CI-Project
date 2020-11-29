@@ -16,6 +16,10 @@ pipeline {
         NEXUS_REPOSITORY = "Releases"
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "admin:admin123"
+          registry = "medsaidraoudh/try_this"
+        registryCredential = 'medsaidcredentials11'
+        dockerImage = ''
+
     }
     stages {
         stage("clone code") {
@@ -63,7 +67,7 @@ pipeline {
                     // Since unit testing is out of the scope we skip them
                      withSonarQubeEnv('timesheet-environment') {
 
-                    bat "mvn sonar:sonar "
+                    bat "mvn sonar:sonar"
                      }
                 }
             }
