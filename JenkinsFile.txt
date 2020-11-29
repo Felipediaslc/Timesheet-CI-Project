@@ -30,15 +30,6 @@ pipeline {
                 }
             }
         }
-        stage("mvn build") {
-            steps {
-                script {
-                    // If you are using Windows then you should use "bat" step
-                    // Since unit testing is out of the scope we skip them
-                    bat "mvn package -DskipTests=true"
-                }
-            }
-        }
         stage("mvn clean install ") {
             steps {
                 script {
@@ -48,58 +39,87 @@ pipeline {
                 }
             }
         }
-        stage("mvn test ") {
+        stage("mvn build") {
             steps {
                 script {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
-                    bat "mvn test"
+                    bat "mvn package -DskipTests=true"
                 }
             }
         }
+    
+        // stage("mvn test ") {
+        //     steps {
+        //         script {
+        //             // If you are using Windows then you should use "bat" step
+        //             // Since unit testing is out of the scope we skip them
+        //             bat "mvn test"
+        //         }
+        //     }
+        // }
      
         
-        stage("sonar ") {
+    //     stage("sonar") {
          
-            steps {
-                script {
-                    // If you are using Windows then you should use "bat" step
-                    // Since unit testing is out of the scope we skip them
-                     withSonarQubeEnv('timesheet-environment') {
+    //         steps {
+    //             script {
+    //                 // If you are using Windows then you should use "bat" step
+    //                 // Since unit testing is out of the scope we skip them
+    //                  withSonarQubeEnv('timesheet-environment') {
 
-                    bat "mvn sonar:sonar"
-                     }
-                }
-            }
-        } 
+    //                 bat "mvn sonar:sonar"
+    //                  }
+    //             }
+    //         }
+    //     } 
 
-       stage("Quality Gate") {
-            steps {
-              timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
-              }
-            }
-          }
+    //    stage("Quality Gate") {
+    //         steps {
+    //           timeout(time: 1, unit: 'HOURS') {
+    //             waitForQualityGate abortPipeline: true
+    //           }
+    //         }
+    //       }
 
            
-         stage("mvn deploy") {
-            steps {
-                script {
-                    // If you are using Windows then you should use "bat" step
-                    // Since unit testing is out of the scope we skip them
-                    bat "mvn -s settings.xml clean deploy"
+        //  stage("mvn deploy") {
+        //     steps {
+        //         script {
+        //             // If you are using Windows then you should use "bat" step
+        //             // Since unit testing is out of the scope we skip them
+        //             bat "mvn -s settings.xml clean deploy"
+        //         }
+        //     }
+        // }
+
+     stage('Building docker image') {
+          steps{
+               script {
+                 // this step build docker image 
+                 docker.build registry + ":$BUILD_NUMBER"
                 }
-            }
+         }    
         }
+       stage('Deploy Image') {
+         steps{
+           script {
+                 // this step push the docker image builded to dockerhub
+                 docker.withRegistry( '', registryCredential ) {	
+	         bat "docker push $registry:$BUILD_NUMBER"
+                 }
+          }
+        }
+      }
 
   
-        stage("mail") {
-          steps {
-          mail bcc: '', body: '''Hello saiiid the build of your project successed.
-            Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build succed', to: 'mouhamedsaid.raoudh@esprit.tn'
-          }
+        // stage("mail") {
+        //   steps {
+        //   mail bcc: '', body: '''Hello saiiid the build of your project successed.
+        //     Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build succed', to: 'mouhamedsaid.raoudh@esprit.tn'
+        //   }
         
-        }
+        // }
         
         
        
