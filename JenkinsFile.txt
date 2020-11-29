@@ -106,9 +106,9 @@ pipeline {
          steps{
            script {
                  // this step push the docker image builded to dockerhub
-                 docker.withRegistry( '', registryCredential ) {	
+             bat "docker login -u medsaidraoudh -p abcABC1233"
 	         bat "docker push $registry:$BUILD_NUMBER"
-                 }
+                 
           }
         }
       }
